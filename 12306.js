@@ -22,25 +22,30 @@
 // @antifeature    referral-link
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     console.log('简易订票助手程序启动');
 
-    var TRAIN_DATE='2022-01-23',
-        TRAIN_NO_ARR=['G6351'],
-        TRAIN_TYPE=30,// 车票类型  all 任意车次 23软卧一等 动卧 28硬卧二等 软座 29硬座 26无座 32商务特等座 30二等座 31一等座 33高级商务
-        TRAIN_SEAT=0,// 一等座M,特等座P,二等座0,商务座9,硬座1,无座1,软座2,软卧4,硬卧3  // 大小写敏感
+    var TRAIN_DATE = '2022-02-03',
+        TRAIN_NO_ARR = ['D937', 'G6329'],
+        TRAIN_TYPE = 30,// 车票类型  all 任意车次 23软卧一等 动卧 28硬卧二等 软座 29硬座 26无座 32商务特等座 30二等座 31一等座 33高级商务
+        TRAIN_SEAT = 0,// 一等座M,特等座P,二等座0,商务座9,硬座1,无座1,软座2,软卧4,硬卧3  // 大小写敏感
         FROM_STATION,
         Passengers,
         TO_STATION,
-        FROM_STATION_NAME='普宁',
-        TO_STATION_NAME='广州';
+        SALE_TIME = "09:54:00",
+        FROM_STATION_NAME = '普宁',
+        PERSONS=['张连超','张旺超','张斌'],
+        TO_STATION_NAME = '广州';
 
-    var MAP={
-        '广州':'GZQ',
-        '普宁':'PEQ'
+    var MAP = {
+        '广州': 'GZQ',
+        '普宁': 'PEQ'
     };
+
+    var TTT = null;
+    var IS_START = false;
 
     function queryTicket() {
         var str_arr = '';
@@ -55,75 +60,75 @@
         return str_arr;
     }
 
-    function matchStation(str_arr){
-        var list=[];
-        for(var j=0;j<TRAIN_NO_ARR.length;j++)
-            for(var i=0;i<str_arr.length;i++){
-                var arr=str_arr[i].split('|');
-                if(TRAIN_NO_ARR[j]==arr[3]&&(arr[TRAIN_TYPE]>0||arr[TRAIN_TYPE]==='有')){
-                    list.push(arr);break;
+    function matchStation(str_arr) {
+        var list = [];
+        for (var j = 0; j < TRAIN_NO_ARR.length; j++)
+            for (var i = 0; i < str_arr.length; i++) {
+                var arr = str_arr[i].split('|');
+                if (TRAIN_NO_ARR[j] == arr[3] && (arr[TRAIN_TYPE] >= PERSONS.length || arr[TRAIN_TYPE] === '有')) {
+                    list.push(arr); break;
                 }
             }
         return list;
     }
 
     function submitOrderRequest(secretStr) {
-        var status=false;
+        var status = false;
         var settings = {
             "url": "https://kyfw.12306.cn/otn/leftTicket/submitOrderRequest",
             "async": false,
             "method": "POST",
             "data": `secretStr=${secretStr}&train_date=${TRAIN_DATE}&back_train_date=${TRAIN_DATE}&tour_flag=dc&purpose_codes=ADULT&query_from_station_name=${FROM_STATION_NAME}&query_to_station_name=${TO_STATION_NAME}&undefined`,
         };
-        $.ajax(settings).done(function(res){
-            if(res.status==undefined){
+        $.ajax(settings).done(function (res) {
+            if (res.status == undefined) {
                 error('请先登录')
             }
-            status=res.status;
+            status = res.status;
         });
         return status;
     }
 
-    function init(){
-        FROM_STATION=MAP[FROM_STATION_NAME];
-        TO_STATION=MAP[TO_STATION_NAME];
+    function init() {
+        FROM_STATION = MAP[FROM_STATION_NAME];
+        TO_STATION = MAP[TO_STATION_NAME];
         initPassengers();
     }
 
-    function initPassengers(){
+    function initPassengers() {
         var settings = {
             "url": "https://kyfw.12306.cn/otn/passengers/query",
-            "async":false,
+            "async": false,
             "method": "POST",
             "data": {
                 "pageIndex": 1,
-                "pageSize":10
+                "pageSize": 10
             }
         };
         $.ajax(settings).done(function (res) {
-            Passengers=res['data']['datas'];
+            Passengers = res['data']['datas'];
         });
     }
 
-    function initDcForm(){
-        var param=false;
+    function initDcForm() {
+        var param = false;
         var settings = {
             "url": "https://kyfw.12306.cn/otn/confirmPassenger/initDc",
-            "async":false,
+            "async": false,
             "method": "POST",
             "data": {
                 "_json_att": ""
             }
         };
         $.ajax(settings).done(function (response) {
-            var globalRepeatSubmitToken=/var globalRepeatSubmitToken = '(.*?)';/.exec(response);
-            var leftTicketStr=/'leftTicketStr':'(.*?)'/.exec(response);
-            var key_check_isChange=/'key_check_isChange':'(.*?)'/.exec(response);
-            if(globalRepeatSubmitToken&&leftTicketStr&&key_check_isChange){
-                param={
-                    'globalRepeatSubmitToken':globalRepeatSubmitToken[1],
-                    'leftTicketStr':leftTicketStr[1],
-                    'key_check_isChange':key_check_isChange[1],
+            var globalRepeatSubmitToken = /var globalRepeatSubmitToken = '(.*?)';/.exec(response);
+            var leftTicketStr = /'leftTicketStr':'(.*?)'/.exec(response);
+            var key_check_isChange = /'key_check_isChange':'(.*?)'/.exec(response);
+            if (globalRepeatSubmitToken && leftTicketStr && key_check_isChange) {
+                param = {
+                    'globalRepeatSubmitToken': globalRepeatSubmitToken[1],
+                    'leftTicketStr': leftTicketStr[1],
+                    'key_check_isChange': key_check_isChange[1],
                 }
             }
 
@@ -131,27 +136,27 @@
         return param;
     }
 
-    function sureOrder(form,tick){
-        var oldPassengerStr='';
-        var passengerTicketStr='';
-        var result=false;
+    function sureOrder(form, tick) {
+        var oldPassengerStr = '';
+        var passengerTicketStr = '';
+        var result = false;
         var arr;
-        for(var i=0;i<Passengers.length;i++){
-            var vo=Passengers[i];
-            arr=[vo.passenger_name,1,vo.passenger_id_no,'1_'];
+        for (var i = 0; i < Passengers.length; i++) {
+            var vo = Passengers[i];
+            arr = [vo.passenger_name, 1, vo.passenger_id_no, '1_'];
             //if(i>0) oldPassengerStr+=',';
-            oldPassengerStr+=arr.join(',');
-            arr=['O',0,1,vo.passenger_name,1,vo.passenger_id_no,vo.mobile_no,'N',vo.allEncStr];
-            if(i>0) passengerTicketStr+='_';
-            passengerTicketStr+=arr.join(',');
+            oldPassengerStr += arr.join(',');
+            arr = ['O', 0, 1, vo.passenger_name, 1, vo.passenger_id_no, vo.mobile_no, 'N', vo.allEncStr];
+            if (i > 0) passengerTicketStr += '_';
+            passengerTicketStr += arr.join(',');
         }
         //校验订单
         var settings = {
             "url": "https://kyfw.12306.cn/otn/confirmPassenger/checkOrderInfo",
             "method": "POST",
-            "async":false,
+            "async": false,
             "data": {
-                "REPEAT_SUBMIT_TOKEN":form['globalRepeatSubmitToken'],
+                "REPEAT_SUBMIT_TOKEN": form['globalRepeatSubmitToken'],
                 "_json_att": "",
                 "bed_level_order_num": "000000000000000000000000000000",
                 "cancel_flag": "2",
@@ -167,13 +172,17 @@
         };
 
         $.ajax(settings).done(function (response) {
-            console.log('校验订单结果：',response);
+            console.log('校验订单结果：', response);
+            result = response.data.submitStatus;
+            if(!result) error(response.data.errMsg);
         });
+
+        if(!result)  return false;
 
         settings = {
             "url": "https://kyfw.12306.cn/otn/confirmPassenger/confirmSingleForQueue",
             "method": "POST",
-            "async":false,
+            "async": false,
             "data": {
                 "REPEAT_SUBMIT_TOKEN": form['globalRepeatSubmitToken'],
                 "_json_att": "",
@@ -182,7 +191,7 @@
                 "is_cj": "Y",
                 "is_jy": "N",
                 "key_check_isChange": form['key_check_isChange'],
-                "leftTicketStr":form['leftTicketStr'],
+                "leftTicketStr": form['leftTicketStr'],
                 "oldPassengerStr": oldPassengerStr,
                 "passengerTicketStr": passengerTicketStr,
                 "purpose_codes": "00",
@@ -194,64 +203,85 @@
             }
         };
         $.ajax(settings).done(function (response) {
-            console.log('确认订单结果：',response);
-            result=response.data.submitStatus;
+            console.log('确认订单结果：', response);
+            result = response.data.submitStatus;
+            if(!result) error(response.data.errMsg);
         });
 
         return result;
     }
 
-    function log(msg){
-        msg=" "+msg;
-        console.log(new Date().toISOString()+msg);
+    function log(msg) {
+        msg = " " + msg;
+        console.log(new Date().toISOString() + msg);
     }
-    function warn(msg){
-        console.warn(new Date().toISOString()+msg);
+    function warn(msg) {
+        console.warn(new Date().toISOString() + msg);
     }
-    function error(msg){
-        console.error(new Date().toISOString()+msg);
+    function error(msg) {
+        console.error(new Date().toISOString() + msg);
     }
 
-    var TTT=null;
-    function orderQueue(num=1){
-        if(TTT) clearTimeout(TTT);
-        var t1=new Date().getTime();
+
+    function orderQueue(num = 1) {
+        if (TTT) clearTimeout(TTT);
+        var t1 = new Date().getTime();
         console.log("\n");
-        log('开始第'+num+'次抢票。。。');
-        var str_arr=queryTicket();
-        var res_match=matchStation(str_arr);
-        if(res_match.length>0){
-            for(var i=0;i<res_match.length;i++){
-                log('申请订单，车次'+res_match[i][3]);
-                var res=submitOrderRequest(res_match[i][0]);
-                var form=initDcForm();
-                if(res&&form){
-                    log('校验与确认订单，车次'+res_match[i][3]);
-                    res=sureOrder(form,res_match[i]);
-                    if(res){
-                        log('抢票成功，车次'+res_match[i][3]);
-                        break;
-                    }else{
-                        warn('抢票失败，车次'+res_match[i][3]);
+        log('开始第' + num + '次抢票。。。');
+        var str_arr = queryTicket();
+        var res_match = matchStation(str_arr);
+        if (res_match.length > 0) {
+            for (var i = 0; i < res_match.length; i++) {
+                var bus_no = res_match[i][3];
+                log('申请订单，车次' + bus_no);
+                var res = submitOrderRequest(res_match[i][0]);
+                var form = initDcForm();
+                if (res && form) {
+                    log('校验与确认订单，车次' + bus_no);
+                    res = sureOrder(form, res_match[i]);
+                    if (res) {
+                        log('抢票成功，车次' + bus_no);
+                        return true;
+                    } else {
+                        warn('抢票失败，车次' + bus_no);
                     }
-                }else{
-                    log('申请订单失败，车次'+res_match[i][3]);
+                } else {
+                    log('申请订单失败，车次' + bus_no);
                 }
             }
-        }else{
+        } else {
             console.log('未查询到有效车票');
         }
-        var t2=new Date().getTime();
-        log('结束第'+num+'次抢票。。。本次耗时:'+(t2-t1)+'ms');
+        var t2 = new Date().getTime();
+        log('结束第' + num + '次抢票。。。本次耗时:' + (t2 - t1) + 'ms');
         console.log("\n");
-        TTT=setTimeout(()=>{
-            orderQueue(num+1);
-        },15000);
+        TTT = setTimeout(() => {
+            orderQueue(num + 1);
+        }, 1000);
     }
 
-    function main(){
+    function waitTime() {
+        var time=setTimeout(() => {
+            log('等待开售时间');
+            var date = new Date().toISOString().substr(0, 10)
+            var t = new Date(date + ' ' + SALE_TIME).getTime();
+            while (1) {
+                var offset = new Date().getTime() - t;
+                if (offset > -100) {
+                    log('开售时间到！');
+                    IS_START = true;
+                    clearTimeout(time);
+                    break;
+                }
+            }
+        }, 0);
+
+    }
+
+    function main() {
         init();
-        orderQueue();
+        waitTime()
+        if (IS_START) orderQueue();
     }
 
     main();
