@@ -289,7 +289,7 @@
             log(`等待开售时间。。。预计需要${mm}分钟`);
             var time = setInterval(function(){
                 var offset = new Date().getTime() - t;
-                if (offset > -3000) {
+                if (offset > -5000) {
                     log('开售时间到！');
                     clearInterval(time);
                     orderQueue();
