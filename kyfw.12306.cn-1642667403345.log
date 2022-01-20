@@ -1,0 +1,50 @@
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:28:10.517Z 简易订票助手程序启动
+DevTools failed to load source map: Could not load content for chrome-extension://eifaacoeabflnkjlejcmbacbogiemojg/mdui.min.js.map: HTTP error: status code 404, net::ERR_UNKNOWN_URL_SCHEME
+DevTools failed to load source map: Could not load content for chrome-extension://eifaacoeabflnkjlejcmbacbogiemojg/mdui.min.js.map: HTTP error: status code 404, net::ERR_UNKNOWN_URL_SCHEME
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:13 [Deprecation] Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience. For more help, check https://xhr.spec.whatwg.org/.
+send @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:13
+ajax @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:13
+initPassengers @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:137
+init @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:107
+main @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:317
+eval @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:321
+tms_58ca3061_fdd7_41ce_92d4_3472fe69cebb @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:322
+(anonymous) @ VM194:4
+eval @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:1
+eval @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:1
+eval @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:323
+eval @ userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:325
+(anonymous) @ VM194:4
+t @ VM194:3
+(anonymous) @ VM194:4
+eval @ VM198:67
+create @ VM198:69
+c @ VM198:7
+runListeners @ VM198:7
+eval @ VM198:70
+v @ VM194:13
+(anonymous) @ VM193 content.js:92
+s @ VM193 content.js:92
+send @ VM193 content.js:93
+(anonymous) @ VM193 content.js:116
+processQueue @ VM193 content.js:88
+r @ VM193 content.js:95
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:28:10.823Z 抢票 2022-02-03 从泰山到杭州 车次：G171，G61，G1371
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:28:10.824Z 等待开售时间。。。预计需要2分钟
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:29:57.005Z 开售时间到！
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:258 
+
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:29:57.008Z 开始第1次抢票。。。
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:284 未查询到有效车票
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:29:57.187Z 结束第1次抢票。。。本次耗时:180ms
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:288 
+
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:258 
+
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:29:57.289Z 开始第2次抢票。。。
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:29:57.375Z 有车票了，车次G171
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:29:57.375Z 申请订单，车次G171
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:29:57.952Z 校验与确认订单，车次G171
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:204 校验订单结果： {validateMessagesShowId: '_validatorMessage', status: true, httpstatus: 200, data: {…}, messages: Array(0), …}
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:235 确认订单结果： {validateMessagesShowId: '_validatorMessage', status: true, httpstatus: 200, data: {…}, messages: Array(0), …}
+userscript.html?name=%E7%AE%80%E6%98%93%E8%AE%A2%E7%A5%A8%E5%8A%A9%E6%89%8B.user.js&id=58ca3061-fdd7-41ce-92d4-3472fe69cebb:245 2022-01-20T08:29:58.315Z 抢票成功，车次G171
